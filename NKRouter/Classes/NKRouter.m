@@ -17,6 +17,8 @@ NKRouterSchemeName const NKRouterSchemeGlobal = @"__NKRouter_SchemeGlobalKey";
 
 static NSString * const _NKRouter_PathComponentsMapSessionKey = @"__NKRouter_PathComponentsMap_SessionKey";
 static NSString * const _NKRouter_PathComponentsMapOptionKey = @":option";
+static NSString * const _NKRouter_PathComponentsMapWildcardKey = @"*";
+static NSString * const _NKRouter_PathComponentsMapLevelKey = @":levelNum";
 
 static NSMutableDictionary *_NKRouter_SchemeCollectionMap = nil;
 static NSLock *_NKRouter_SchemeCollectionMapLock = nil;
@@ -172,6 +174,7 @@ static NSLock *_NKRouter_SchemeCollectionMapLock = nil;
     
     [self.pathComponentsMapLock lock];
     NSMutableDictionary *pathComponentsMap = self.pathComponentsMap;
+    NSInteger level = 1;
     for (NSString *path in pathComponents) {
         NSString *pathKey = path;
         if ([pathKey hasPrefix:@":"]) {
@@ -181,14 +184,16 @@ static NSLock *_NKRouter_SchemeCollectionMapLock = nil;
         NSMutableDictionary *subPathComponentsMap = pathComponentsMap[pathKey];
         if (!subPathComponentsMap) {
             subPathComponentsMap = NSMutableDictionary.new;
+            subPathComponentsMap[_NKRouter_PathComponentsMapLevelKey] = @(level);
             pathComponentsMap[pathKey] = subPathComponentsMap;
         }
         pathComponentsMap = subPathComponentsMap;
         
-        if ([pathKey isEqualToString:@"*"]) {
+        if ([pathKey isEqualToString:_NKRouter_PathComponentsMapWildcardKey]) {
             break;
         }
         
+        level++;
     }
     pathComponentsMap[_NKRouter_PathComponentsMapSessionKey] = session;
     [self.pathComponentsMapLock unlock];
@@ -203,7 +208,7 @@ static NSLock *_NKRouter_SchemeCollectionMapLock = nil;
                executeRoute:(BOOL)isExecute {
     if (!isExecute && self.undefinedSession) return true;
     
-    NSArray *pathComponents = [self _pathComponentsWithPath:urlComponents.path];
+    NSArray<NSString *> *pathComponents = [self _pathComponentsWithPath:urlComponents.path];
     if (!pathComponents.count) {
         if (isExecute) {
             [self _executeSession:nil urlComponents:urlComponents parameters:parameters completionHandler:completionHandler];
@@ -215,30 +220,47 @@ static NSLock *_NKRouter_SchemeCollectionMapLock = nil;
     NSDictionary *pathComponentsMap = [self.pathComponentsMap copy];
     [self.pathComponentsMapLock unlock];
     
-    NSMutableArray *nodeArray = NSMutableArray.new;
-    NSDictionary *nodeDic = pathComponentsMap;
-    NSInteger currentLevel = 0;
     NKRouterSession *session = nil;
-    NSInteger undefinedSessionLevel = 0;
-    NKRouterSession *undefinedSession = nil;
+    NSMutableArray *nodeArray = NSMutableArray.new;
+    
+    NSInteger wildcardSessionLevel = -1;
+    NKRouterSession *wildcardSession = nil;
+    
+    NSDictionary *nodeDic = pathComponentsMap;
     while (nodeDic || nodeArray.count) {
-//        if (<#condition#>) {
-//            <#statements#>
-//        }
+        NSInteger currentLevel = [nodeDic[_NKRouter_PathComponentsMapLevelKey] integerValue];
+        if (currentLevel == pathComponents.count) {
+            if ([nodeDic[_NKRouter_PathComponentsMapSessionKey] isKindOfClass:NKRouterSession.class]) {
+                session = nodeDic[_NKRouter_PathComponentsMapSessionKey];
+                break;
+            } else if (nodeDic[_NKRouter_PathComponentsMapWildcardKey]) {
+                wildcardSessionLevel = currentLevel;
+                wildcardSession = nodeDic[_NKRouter_PathComponentsMapWildcardKey][_NKRouter_PathComponentsMapSessionKey];
+            }
+            nodeDic = nil;
+        }
+        
         if (nodeDic) {
-            
+            NSString *key = pathComponents[currentLevel - 1];
+            [nodeArray addObject:nodeDic];
+            nodeDic = nodeDic[key];
         } else {
             nodeDic = nodeArray.lastObject;
+            [nodeArray removeLastObject];
+            
+            if (currentLevel > wildcardSessionLevel &&  nodeDic[_NKRouter_PathComponentsMapWildcardKey]) {
+                wildcardSessionLevel = currentLevel ;
+                wildcardSession = nodeDic[_NKRouter_PathComponentsMapWildcardKey][_NKRouter_PathComponentsMapSessionKey];
+            }
+            nodeDic = nodeDic[_NKRouter_PathComponentsMapOptionKey];
         }
     }
     
-    
-    
     if (isExecute) {
-        [self _executeSession:session urlComponents:urlComponents parameters:parameters completionHandler:completionHandler];
+        [self _executeSession:(session ?: wildcardSession) urlComponents:urlComponents parameters:parameters completionHandler:completionHandler];
     }
     
-    return session;
+    return session ?: wildcardSession;
 }
 
 - (void)_executeSession:(NKRouterSession *)session
