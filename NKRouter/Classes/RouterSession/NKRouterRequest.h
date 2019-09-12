@@ -26,7 +26,7 @@ typedef NS_ENUM(NSUInteger, NKRouterMatchType) {
 
 
 @property (nonatomic, strong, nullable) NSDictionary<NSString *, NSString *> *requestUrlQuery;
-@property (nonatomic, strong, nullable) NSDictionary<NSString *, id> *requestExtraParameters;
+@property (nonatomic, strong, nullable) NSDictionary *requestExtraParameters;
 
 
 @property (nonatomic, assign) NKRouterMatchType matchType;

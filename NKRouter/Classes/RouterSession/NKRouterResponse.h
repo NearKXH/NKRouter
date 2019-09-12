@@ -23,16 +23,17 @@ typedef NS_ENUM(NSUInteger, NKRouterResponseError) {
 
 @interface NKRouterResponse : NSObject
 
+@property (nonatomic, assign) NKRouterMatchType matchType;      // shown the url match type
+
 @property (nonatomic, assign) BOOL succeed; // set by session callback. False, if url can not be matched
 @property (nonatomic, strong, nullable) NSDictionary *responseObject;
 @property (nonatomic, strong, nullable) NSError *responseError;
 
 
 @property (nonatomic, strong) NSString *originalUrl;
-@property (nonatomic, strong, nullable) NSDictionary<NSString *, id> *originalParameters;
+@property (nonatomic, strong, nullable) NSDictionary *originalParameters;
 
 
-@property (nonatomic, assign) NKRouterMatchType matchType;      // shown the url match type
 @property (nonatomic, strong, nullable) NSString *matchPath;
 
 

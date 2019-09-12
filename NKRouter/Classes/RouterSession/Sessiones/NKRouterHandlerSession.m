@@ -10,13 +10,14 @@
 
 @interface NKRouterHandlerSession ()
 
-@property (nonatomic, copy) void (^handler)(NSDictionary<NSString *, id> *);
+@property (nonatomic, copy) void (^handler)(NSDictionary *);
+
 
 @end
 
 @implementation NKRouterHandlerSession
 
-- (instancetype)initWithHandler:(void (^)(NSDictionary<NSString *, id> * _Nonnull))handler {
+- (instancetype)initWithHandler:(void (^)(NSDictionary * _Nonnull))handler {
     self = [super init];
     if (self) {
         self.handler = handler;
@@ -30,5 +31,6 @@
     }
     completionHandler(true, nil, nil);
 }
+
 
 @end

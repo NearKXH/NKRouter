@@ -29,14 +29,12 @@ static NSMutableDictionary *_NKRouter_SchemeCollectionMap = nil;
 static NSLock *_NKRouter_SchemeCollectionMapLock = nil;
 
 
-
 @interface NKRouter ()
 @property (nonatomic, copy, readwrite) NKRouterSchemeName scheme;
 
 @property (nonatomic, strong) NSMutableDictionary *pathComponentsMap;
 @property (nonatomic, strong) NSLock *pathComponentsMapLock;
 
-@property (atomic, strong, nullable) NKRouterSession *undefinedSession;
 
 @end
 
