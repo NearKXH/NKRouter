@@ -10,7 +10,28 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NKRouterRequest : NSObject
+typedef NS_ENUM(NSUInteger, NKRouterMatchType) {
+    NKRouterMatchTypeNone,
+    NKRouterMatchTypeComplete,
+    NKRouterMatchTypeOption,
+    NKRouterMatchTypeWildcard,
+    NKRouterMatchTypeUndefined,
+};
+
+
+@interface NKRouterRequest : NSObject 
+
+@property (nonatomic, strong) NSString *requestUrl;
+@property (nonatomic, strong) NSDictionary *parameters;
+
+
+@property (nonatomic, strong, nullable) NSDictionary<NSString *, NSString *> *requestUrlQuery;
+@property (nonatomic, strong, nullable) NSDictionary<NSString *, id> *requestExtraParameters;
+
+
+@property (nonatomic, assign) NKRouterMatchType matchType;
+@property (nonatomic, strong, nullable) NSString *matchPath;
+
 
 @end
 

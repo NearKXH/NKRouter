@@ -16,4 +16,9 @@ FOUNDATION_EXPORT const unsigned char NKRouterVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <NKRouter/PublicHeader.h>
 
+#import <NKRouterKit/NKRouter.h>
 
+#import <NKRouterKit/NKRouterRequest.h>
+#import <NKRouterKit/NKRouterResponse.h>
+
+#import <NKRouterKit/NKRouterSession.h>

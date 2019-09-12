@@ -7,15 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8CB6F59F2328988A00F942AB /* NKRouterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CF42010231CB25A00F94246 /* NKRouterKit.framework */; };
+		8CB6F5A02328988A00F942AB /* NKRouterKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8CF42010231CB25A00F94246 /* NKRouterKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8CB6F5A72329D97100F942AB /* NKRouterRequest+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CB6F5A52329D97100F942AB /* NKRouterRequest+Private.h */; };
+		8CB6F5A82329D97100F942AB /* NKRouterRequest+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB6F5A62329D97100F942AB /* NKRouterRequest+Private.m */; };
+		8CB6F5AB2329D98300F942AB /* NKRouterResponse+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CB6F5A92329D98300F942AB /* NKRouterResponse+Private.h */; };
+		8CB6F5AC2329D98300F942AB /* NKRouterResponse+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB6F5AA2329D98300F942AB /* NKRouterResponse+Private.m */; };
+		8CB6F5AF2329D9DC00F942AB /* NSError+NKRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CB6F5AD2329D9DC00F942AB /* NSError+NKRouter.h */; };
+		8CB6F5B02329D9DC00F942AB /* NSError+NKRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB6F5AE2329D9DC00F942AB /* NSError+NKRouter.m */; };
 		8CF42015231CB25A00F94246 /* NKRouterKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CF42013231CB25A00F94246 /* NKRouterKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8CF42029231CB3D600F94246 /* NKRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CF4201C231CB3D600F94246 /* NKRouter.h */; };
+		8CF42029231CB3D600F94246 /* NKRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CF4201C231CB3D600F94246 /* NKRouter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8CF4202A231CB3D600F94246 /* NKRouterSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CF4201E231CB3D600F94246 /* NKRouterSession.m */; };
-		8CF4202B231CB3D600F94246 /* NKRouterResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CF4201F231CB3D600F94246 /* NKRouterResponse.h */; };
+		8CF4202B231CB3D600F94246 /* NKRouterResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CF4201F231CB3D600F94246 /* NKRouterResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8CF4202C231CB3D600F94246 /* NKRouterRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CF42020231CB3D600F94246 /* NKRouterRequest.m */; };
-		8CF4202D231CB3D600F94246 /* NKRouterHandleSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CF42022231CB3D600F94246 /* NKRouterHandleSession.m */; };
-		8CF4202E231CB3D600F94246 /* NKRouterHandleSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CF42023231CB3D600F94246 /* NKRouterHandleSession.h */; };
-		8CF4202F231CB3D600F94246 /* NKRouterSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CF42024231CB3D600F94246 /* NKRouterSession.h */; };
-		8CF42030231CB3D600F94246 /* NKRouterRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CF42025231CB3D600F94246 /* NKRouterRequest.h */; };
+		8CF4202D231CB3D600F94246 /* NKRouterHandlerSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CF42022231CB3D600F94246 /* NKRouterHandlerSession.m */; };
+		8CF4202E231CB3D600F94246 /* NKRouterHandlerSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CF42023231CB3D600F94246 /* NKRouterHandlerSession.h */; };
+		8CF4202F231CB3D600F94246 /* NKRouterSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CF42024231CB3D600F94246 /* NKRouterSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8CF42030231CB3D600F94246 /* NKRouterRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CF42025231CB3D600F94246 /* NKRouterRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8CF42031231CB3D600F94246 /* NKRouterResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CF42026231CB3D600F94246 /* NKRouterResponse.m */; };
 		8CF42032231CB3D600F94246 /* NKRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CF42027231CB3D600F94246 /* NKRouter.m */; };
 		8CF4203C231CB43C00F94246 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CF4203B231CB43C00F94246 /* AppDelegate.m */; };
@@ -26,7 +34,37 @@
 		8CF4204A231CB43D00F94246 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CF42049231CB43D00F94246 /* main.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		8CB6F5A12328988A00F942AB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8CF42007231CB25A00F94246 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8CF4200F231CB25A00F94246;
+			remoteInfo = NKRouterKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8CB6F5A32328988A00F942AB /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8CB6F5A02328988A00F942AB /* NKRouterKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		8CB6F5A52329D97100F942AB /* NKRouterRequest+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NKRouterRequest+Private.h"; sourceTree = "<group>"; };
+		8CB6F5A62329D97100F942AB /* NKRouterRequest+Private.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NKRouterRequest+Private.m"; sourceTree = "<group>"; };
+		8CB6F5A92329D98300F942AB /* NKRouterResponse+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NKRouterResponse+Private.h"; sourceTree = "<group>"; };
+		8CB6F5AA2329D98300F942AB /* NKRouterResponse+Private.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NKRouterResponse+Private.m"; sourceTree = "<group>"; };
+		8CB6F5AD2329D9DC00F942AB /* NSError+NKRouter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSError+NKRouter.h"; sourceTree = "<group>"; };
+		8CB6F5AE2329D9DC00F942AB /* NSError+NKRouter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSError+NKRouter.m"; sourceTree = "<group>"; };
 		8CF42010231CB25A00F94246 /* NKRouterKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NKRouterKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CF42013231CB25A00F94246 /* NKRouterKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NKRouterKit.h; sourceTree = "<group>"; };
 		8CF42014231CB25A00F94246 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -34,8 +72,8 @@
 		8CF4201E231CB3D600F94246 /* NKRouterSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NKRouterSession.m; sourceTree = "<group>"; };
 		8CF4201F231CB3D600F94246 /* NKRouterResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NKRouterResponse.h; sourceTree = "<group>"; };
 		8CF42020231CB3D600F94246 /* NKRouterRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NKRouterRequest.m; sourceTree = "<group>"; };
-		8CF42022231CB3D600F94246 /* NKRouterHandleSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NKRouterHandleSession.m; sourceTree = "<group>"; };
-		8CF42023231CB3D600F94246 /* NKRouterHandleSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NKRouterHandleSession.h; sourceTree = "<group>"; };
+		8CF42022231CB3D600F94246 /* NKRouterHandlerSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NKRouterHandlerSession.m; sourceTree = "<group>"; };
+		8CF42023231CB3D600F94246 /* NKRouterHandlerSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NKRouterHandlerSession.h; sourceTree = "<group>"; };
 		8CF42024231CB3D600F94246 /* NKRouterSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NKRouterSession.h; sourceTree = "<group>"; };
 		8CF42025231CB3D600F94246 /* NKRouterRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NKRouterRequest.h; sourceTree = "<group>"; };
 		8CF42026231CB3D600F94246 /* NKRouterResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NKRouterResponse.m; sourceTree = "<group>"; };
@@ -64,12 +102,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CB6F59F2328988A00F942AB /* NKRouterKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8CB6F5A42329D94F00F942AB /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				8CB6F5A52329D97100F942AB /* NKRouterRequest+Private.h */,
+				8CB6F5A62329D97100F942AB /* NKRouterRequest+Private.m */,
+				8CB6F5A92329D98300F942AB /* NKRouterResponse+Private.h */,
+				8CB6F5AA2329D98300F942AB /* NKRouterResponse+Private.m */,
+				8CB6F5AD2329D9DC00F942AB /* NSError+NKRouter.h */,
+				8CB6F5AE2329D9DC00F942AB /* NSError+NKRouter.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
 		8CF42006231CB25A00F94246 = {
 			isa = PBXGroup;
 			children = (
@@ -111,11 +163,12 @@
 		8CF4201D231CB3D600F94246 /* RouterSession */ = {
 			isa = PBXGroup;
 			children = (
+				8CB6F5A42329D94F00F942AB /* Category */,
 				8CF42021231CB3D600F94246 /* Sessiones */,
 				8CF42024231CB3D600F94246 /* NKRouterSession.h */,
 				8CF4201E231CB3D600F94246 /* NKRouterSession.m */,
-				8CF42020231CB3D600F94246 /* NKRouterRequest.m */,
 				8CF42025231CB3D600F94246 /* NKRouterRequest.h */,
+				8CF42020231CB3D600F94246 /* NKRouterRequest.m */,
 				8CF4201F231CB3D600F94246 /* NKRouterResponse.h */,
 				8CF42026231CB3D600F94246 /* NKRouterResponse.m */,
 			);
@@ -125,8 +178,8 @@
 		8CF42021231CB3D600F94246 /* Sessiones */ = {
 			isa = PBXGroup;
 			children = (
-				8CF42022231CB3D600F94246 /* NKRouterHandleSession.m */,
-				8CF42023231CB3D600F94246 /* NKRouterHandleSession.h */,
+				8CF42023231CB3D600F94246 /* NKRouterHandlerSession.h */,
+				8CF42022231CB3D600F94246 /* NKRouterHandlerSession.m */,
 			);
 			path = Sessiones;
 			sourceTree = "<group>";
@@ -155,11 +208,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CF42029231CB3D600F94246 /* NKRouter.h in Headers */,
+				8CB6F5A72329D97100F942AB /* NKRouterRequest+Private.h in Headers */,
 				8CF4202B231CB3D600F94246 /* NKRouterResponse.h in Headers */,
 				8CF42015231CB25A00F94246 /* NKRouterKit.h in Headers */,
 				8CF4202F231CB3D600F94246 /* NKRouterSession.h in Headers */,
 				8CF42030231CB3D600F94246 /* NKRouterRequest.h in Headers */,
-				8CF4202E231CB3D600F94246 /* NKRouterHandleSession.h in Headers */,
+				8CF4202E231CB3D600F94246 /* NKRouterHandlerSession.h in Headers */,
+				8CB6F5AB2329D98300F942AB /* NKRouterResponse+Private.h in Headers */,
+				8CB6F5AF2329D9DC00F942AB /* NSError+NKRouter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,10 +247,12 @@
 				8CF42034231CB43C00F94246 /* Sources */,
 				8CF42035231CB43C00F94246 /* Frameworks */,
 				8CF42036231CB43C00F94246 /* Resources */,
+				8CB6F5A32328988A00F942AB /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				8CB6F5A22328988A00F942AB /* PBXTargetDependency */,
 			);
 			name = routerDemo;
 			productName = routerDemo;
@@ -264,7 +322,10 @@
 			files = (
 				8CF4202A231CB3D600F94246 /* NKRouterSession.m in Sources */,
 				8CF42032231CB3D600F94246 /* NKRouter.m in Sources */,
-				8CF4202D231CB3D600F94246 /* NKRouterHandleSession.m in Sources */,
+				8CF4202D231CB3D600F94246 /* NKRouterHandlerSession.m in Sources */,
+				8CB6F5A82329D97100F942AB /* NKRouterRequest+Private.m in Sources */,
+				8CB6F5AC2329D98300F942AB /* NKRouterResponse+Private.m in Sources */,
+				8CB6F5B02329D9DC00F942AB /* NSError+NKRouter.m in Sources */,
 				8CF42031231CB3D600F94246 /* NKRouterResponse.m in Sources */,
 				8CF4202C231CB3D600F94246 /* NKRouterRequest.m in Sources */,
 			);
@@ -281,6 +342,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8CB6F5A22328988A00F942AB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8CF4200F231CB25A00F94246 /* NKRouterKit */;
+			targetProxy = 8CB6F5A12328988A00F942AB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		8CF42040231CB43C00F94246 /* Main.storyboard */ = {

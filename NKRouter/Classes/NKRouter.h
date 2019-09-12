@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NSString *NKRouterSchemeName NS_EXTENSIBLE_STRING_ENUM;
 
 // For globalRouter
-extern NKRouterSchemeName const NKRouterSchemeGlobal;
+extern NKRouterSchemeName const NKRouterGlobalScheme;
 
 @interface NKRouter : NSObject
 
@@ -35,15 +35,28 @@ extern NKRouterSchemeName const NKRouterSchemeGlobal;
 + (void)unregisterAllRouters;
 
 
-+ (BOOL)registerUrl:(NSString *)url handle:(void (^)(NSDictionary * _Nullable))handle;
-- (BOOL)registerUrlPath:(NSString *)urlPath handle:(void (^)(NSDictionary * _Nullable))handle;
++ (BOOL)registerUrl:(NSString *)url handler:(void (^)(NSDictionary * _Nullable parameters))handler;
+- (BOOL)registerUrlPath:(NSString *)urlPath handler:(void (^)(NSDictionary * _Nullable parameters))handler;
 
 
 + (BOOL)registerUrl:(NSString *)url session:(__kindof NKRouterSession *)session;
 - (BOOL)registerUrlPath:(NSString *)urlPath session:(__kindof NKRouterSession *)session;
 
 
-- (void)setupUndefinedUrlSession:(nullable __kindof NKRouterSession *)session;
+- (void)unregisterUrlPath:(NSString *)urlPath;
+- (void)unregisterAllUrl;
+
+
++ (BOOL)canRouteUrl:(NSString *)url;
+- (BOOL)canRouteUrl:(NSString *)url;
+
+
++ (void)routeUrl:(NSString *)url completionHandler:(nullable void (^)(NKRouterResponse *response))completionHandler;
++ (void)routeUrl:(NSString *)url parameters:(nullable NSDictionary<NSString *, id> *)parameters completionHandler:(nullable void (^)(NKRouterResponse *response))completionHandler;
+
+
+- (void)routeUrl:(NSString *)url completionHandler:(nullable void (^)(NKRouterResponse *response))completionHandler;
+- (void)routeUrl:(NSString *)url parameters:(nullable NSDictionary<NSString *, id> *)parameters completionHandler:(nullable void (^)(NKRouterResponse *response))completionHandler;
 
 
 @end

@@ -8,6 +8,12 @@
 
 #import "NKRouterSession.h"
 
+#import "NSError+NKRouter.h"
+
 @implementation NKRouterSession
+
+- (void)sessionRequest:(NKRouterRequest *)request completionHandler:(void (^)(BOOL, NSDictionary * _Nullable, NSError * _Nullable))completionHandler {
+    completionHandler(false, nil, [NSError _NKRouter_responseErrorCode:NKRouterResponseErrorSessionNotRealize]);
+}
 
 @end

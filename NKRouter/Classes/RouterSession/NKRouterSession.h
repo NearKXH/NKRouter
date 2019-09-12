@@ -8,9 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+#import "NKRouterRequest.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NKRouterSession : NSObject
+
+- (void)sessionRequest:(NKRouterRequest *)request completionHandler:(void (^)(BOOL succeed, NSDictionary * _Nullable responseObject, NSError * _Nullable error))completionHandler;
 
 @end
 
