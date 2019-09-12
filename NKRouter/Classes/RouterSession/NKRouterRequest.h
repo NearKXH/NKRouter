@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, NKRouterMatchType) {
     NKRouterMatchTypeNone,          // can not match any registered url and without undefined session
-    NKRouterMatchTypeComplete,      // exact match
+    NKRouterMatchTypeExact,         // match exactly
     NKRouterMatchTypeOption,        // match url with option path
     NKRouterMatchTypeWildcard,      // match url by wildcard
     NKRouterMatchTypeUndefined,     // match url by undefined session

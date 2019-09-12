@@ -212,7 +212,7 @@ static NSLock *_NKRouter_SchemeCollectionMapLock = nil;
                executeRoute:(BOOL)isExecute {
     if (!isExecute && self.undefinedSession) return true;
     
-    NKRouterMatchType matchType = NKRouterMatchTypeComplete;
+    NKRouterMatchType matchType = NKRouterMatchTypeExact;
     
     NKRouterSession *session = nil;
     NSString *sessionPath = nil;
