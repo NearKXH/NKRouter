@@ -11,18 +11,18 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, NKRouterMatchType) {
-    NKRouterMatchTypeNone,
-    NKRouterMatchTypeComplete,
-    NKRouterMatchTypeOption,
-    NKRouterMatchTypeWildcard,
-    NKRouterMatchTypeUndefined,
+    NKRouterMatchTypeNone,          // can not match any registered url and without undefined session
+    NKRouterMatchTypeComplete,      // exact match
+    NKRouterMatchTypeOption,        // match url with option path
+    NKRouterMatchTypeWildcard,      // match url by wildcard
+    NKRouterMatchTypeUndefined,     // match url by undefined session
 };
 
 
 @interface NKRouterRequest : NSObject 
 
 @property (nonatomic, strong) NSString *requestUrl;
-@property (nonatomic, strong) NSDictionary *parameters;
+@property (nonatomic, strong) NSDictionary *parameters; // union requestUrlQuery and requestExtraParameters, key-value which in extra parameters will be used, when the key both in requestUrlQuery and requestExtraParameters
 
 
 @property (nonatomic, strong, nullable) NSDictionary<NSString *, NSString *> *requestUrlQuery;
