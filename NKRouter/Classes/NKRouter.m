@@ -316,10 +316,10 @@ static NSLock *_NKRouter_SchemeCollectionMapLock = nil;
 #pragma mark - description
 #ifdef DEBUG
 - (NSString *)description {
-    return [super description];
+    return [NSString stringWithFormat:@"__%@<%p>__scheme:%@__", self.class, self, self.scheme];
 }
 
-- (NSString *)DebugDescription {
+- (NSString *)debugDescription {
     return [self description];
 }
 

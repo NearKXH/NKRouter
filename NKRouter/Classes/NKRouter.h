@@ -21,6 +21,10 @@ extern NKRouterSchemeName const NKRouterGlobalScheme;
 
 @interface NKRouter : NSObject
 
+///-------------------------------
+/// @name Router Scheme
+///-------------------------------
+
 /// Returns the global routing scheme, using NKRouterSchemeGlobal as scheme
 + (instancetype)globalRouter;
 
@@ -34,6 +38,10 @@ extern NKRouterSchemeName const NKRouterGlobalScheme;
 /// Unregister all routes
 + (void)unregisterAllRouters;
 
+
+///-------------------------------
+/// @name Register Urls
+///-------------------------------
 
 /**
  register url using router which scheme is equal to url's scheme
@@ -74,6 +82,10 @@ extern NKRouterSchemeName const NKRouterGlobalScheme;
  */
 @property (atomic, strong, nullable) NKRouterSession *undefinedSession;
 
+
+///-------------------------------
+/// @name Route Urls
+///-------------------------------
 
 /**
  check url path whether had been registered
