@@ -10,9 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NKRouterHandleSession : NKRouterSession
+@interface NKRouterHandlerSession : NKRouterSession
 
-- (instancetype)initWithHandle:(void (^)(NSDictionary *))handle;
+- (instancetype)initWithHandler:(void (^)(NSDictionary * _Nullable parameters))handler;
+
 
 @end
 
