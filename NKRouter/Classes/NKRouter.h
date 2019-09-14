@@ -21,10 +21,6 @@ extern NKRouterSchemeName const NKRouterGlobalScheme;
 
 @interface NKRouter : NSObject
 
-///-------------------------------
-/// @name Router Scheme
-///-------------------------------
-
 /// Returns the global routing scheme, using NKRouterSchemeGlobal as scheme
 + (instancetype)globalRouter;
 
@@ -39,9 +35,10 @@ extern NKRouterSchemeName const NKRouterGlobalScheme;
 + (void)unregisterAllRouters;
 
 
-///-------------------------------
-/// @name Register Urls
-///-------------------------------
+@end
+
+
+@interface NKRouter (RegisterUrl)
 
 /**
  register url using router which scheme is equal to url's scheme
@@ -83,9 +80,48 @@ extern NKRouterSchemeName const NKRouterGlobalScheme;
 @property (atomic, strong, nullable) NKRouterSession *undefinedSession;
 
 
-///-------------------------------
-/// @name Route Urls
-///-------------------------------
+@end
+
+
+@interface NKRouter (RouteUrl)
+
+/**
+ Algorithm Summary:
+ - Match algorithm uses 'DFS' and 'DLR' 'non-recursion' algorithm
+ - URL route request will trigger once only by the most exact URL route.
+ 
+ Algorithm Detail:
+ NKRouter matches the most exact URL route.
+ - Router matches the same directory firstly, then go to match the next directory if matched.
+ - Otherwise router matches the optional parameter secoedly, then go to match the next directory if matched.
+ - Router go back to previous directory if neither directorys do not exist.
+ - Finally, the routing session, which matched the whole path, will be executed.
+ 
+ For example, the URL route request 'app/home/view' would be triggered for the following registered URL orderly:
+ - app/home/view
+ - app/home/:option
+ - app/:option/view
+ - app/:option/:option
+ - :option/home/view
+ - :option/home/:option
+ - :option/:option/view
+ - :option/:option/:option
+ 
+ Route with wildcards will be matched if the registered URL above can not be found. The match algorithm of wildcards is similar:
+ - app/home/view/ *
+ - app/home/:option/ *
+ - app/home/ *
+ - app/:option/ *
+ - app/ *
+ - :option/ *
+ - *
+ 
+ 'Undefined Session' will be triggered if exist and wildcards do not exist neither.
+ 
+ At the end, URL route 'completionHandler' called with invalid response parameter, if all of the route above do not exist.
+ 
+ */
+
 
 /**
  check url path whether had been registered
@@ -104,7 +140,7 @@ extern NKRouterSchemeName const NKRouterGlobalScheme;
  If the scheme of the url is empty, globalRouter will be used
  
  @param url route by url path, url query as query parameters
- @param completionHandler call when session had been finished
+ @param completionHandler call when session had been finished. Note: completionHandler will be called on main thread
  */
 + (void)routeUrl:(NSString *)url completionHandler:(nullable void (^)(NKRouterResponse *response))completionHandler;
 
@@ -118,7 +154,7 @@ extern NKRouterSchemeName const NKRouterGlobalScheme;
 
  @param url route by url path, url query as query parameters
  @param parameters extra parameters
- @param completionHandler call when session had been finished
+ @param completionHandler call when session had been finished. Note: completionHandler will be called on main thread
  */
 + (void)routeUrl:(NSString *)url parameters:(nullable NSDictionary<NSString *, id> *)parameters completionHandler:(nullable void (^)(NKRouterResponse *response))completionHandler;
 
