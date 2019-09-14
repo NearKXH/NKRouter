@@ -165,6 +165,7 @@ static NSLock *_NKRouter_SchemeCollectionMapLock = nil;
 
 #pragma mark - Private
 #pragma mark register
+/// register and unregister session with url components
 - (BOOL)_registerUrlComponents:(NSURLComponents *)urlComponents session:(NKRouterSession *)session unregister:(BOOL)isUnregister {
     if (!session && !isUnregister) return false;
     
@@ -204,6 +205,7 @@ static NSLock *_NKRouter_SchemeCollectionMapLock = nil;
 }
 
 #pragma mark route
+/// find out url by url components
 - (BOOL)_routeUrlComponents:(NSURLComponents *)urlComponents
                  parameters:(nullable NSDictionary<NSString *, id> *)parameters
           completionHandler:(nullable void (^)(NKRouterResponse *response))completionHandler
@@ -272,6 +274,7 @@ static NSLock *_NKRouter_SchemeCollectionMapLock = nil;
     }
 }
 
+/// execute session
 - (BOOL)_executeSession:(NKRouterSession *)session
           urlComponents:(NSURLComponents *)urlComponents
               matchPath:(NSString *)matchPath
@@ -304,8 +307,20 @@ static NSLock *_NKRouter_SchemeCollectionMapLock = nil;
     
 }
 
+/// make sure completion handler execute in main thread
+- (void)_mainThreadExecuteCompletionHandler:(NKRouterResponse *)response completionHandler:(nullable void (^)(NKRouterResponse *response))completionHandler {
+    if ([NSThread isMainThread]) {
+        completionHandler(response);
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionHandler(response);
+        });
+    }
+}
+
 
 #pragma mark pathComponents
+/// return url path array by url path
 - (NSArray<NSString *> *)_pathComponentsWithPath:(NSString *)path {
     NSMutableArray *array = [[path componentsSeparatedByString:@"/"] mutableCopy];
     [array removeObject:@""];
