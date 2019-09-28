@@ -6,8 +6,13 @@ NKRouter
 
 
 ### What is it? 
-NKRouter is a powerful URL routing library with simple block-based  and senior operability session API. It is designed to make it very easy to handle complex URL schemes in your application. It is base on matching, rather than traversal, to match URL. 
+NKRouter is a powerful URL routing library with simple block-based and senior operability session API. It is designed to make it very easy to handle complex URL schemes in your application. 
+NKRouter has a higher efficiency and better matching precision.
+>Trigger operations **based on matching** rather than traversing.
+>
+>`DFS` and `DLR` **non-recursion** algorithm is used as the matching algorithm. 
 
+##### [中文说明](https://www.jianshu.com/p/93e14ec4ae59)
 
 ### Installation 
 - Using CocoaPods:
@@ -24,6 +29,7 @@ NKRouter require iOS 8.0+.
 
 
 ## Basic Usage
+Register URL operation 
 ```objc
 - (void)registerUrl {
     [[NKRouter globalRouter] registerUrlPath:@"app/home/view" handler:^(NSDictionary * _Nullable parameters) {
@@ -31,7 +37,9 @@ NKRouter require iOS 8.0+.
 
     }];
 }
-
+```
+Trigger URL operation with URL routing
+```objc
 - (void)routeUrl {
     [[NKRouter globalRouter] routeUrl:@"app/home/view" completionHandler:^(NKRouterResponse * _Nonnull response) {
         // called when routing finished
@@ -55,7 +63,25 @@ Routers can also register and route with custom scheme using `[NKRouter routerFo
 
 ##### **Notes**:
 - `[NKRouter globalRouter]` will be used if the scheme of the URL is empty.
-- The host of the URL will not be matched, you can use `myScheme:///app/home/view` to ignore the host. 
+- The host of the URL will not be regist or matched, you can use `myScheme:///app/home/view` to ignore the host. 
+
+
+#### Rounting Parameters
+Triggered parameters is set by routing request and URL query.
+**Notes**: Key-Value, which in routing request, will be set if the key both in routing request and URL query.
+```objc
+MyExtarInfp *info = MyExtarInfp.new;
+NSDictionary *parameters = @{@"info": info, @"name": @"user"};
+[NKRouter routeUrl:@"app/account?id=1&name=visitor" parameters:parameters completionHandler:^(NKRouterResponse * _Nonnull response) {
+// call back when routing finished
+}];
+```
+Triggered route get the parameters as below:
+```objc
+[NKRouter registerUrl:@"app/account" handler:^(NSDictionary * _Nullable parameters) {
+// parameters = @{@"info": info, @"name": @"user", @"id": @"1"};
+}];
+```
 
 
 ## Senior Usage 
@@ -71,7 +97,7 @@ or
 [NKRouter registerUrl:@"sheme://host/app/home/view" session:mySession];
 ```
 
-The method `sessionRequest:completionHandler:`  of custom session will be called when URL routing match. The parameters: 
+The method `sessionRequest:completionHandler:`  of custom session will be called when URL routing matched. The parameters: 
 - `request` request info model, including `requestUrl`, `parameters`, `matchPath`, `matchType` ...
 - `completionHandler` session should call the `completionHandler` as soon as it has finished performing that operation, to notify the URL routing requester whether this operation is succeed and respond the `responseObject` or `error`.
 ```objc
@@ -89,13 +115,13 @@ The method `sessionRequest:completionHandler:`  of custom session will be called
 @end
 ```
 
-### Optional Paths
-NKRouter supports setting up routes with optional parameters. The optional parameter can match any directory. At the route registration moment, NKRouter will register optional parameter `:option` instead of the directory if it is start of `:`.
+### Optional Directory
+NKRouter supports setting up routes with optional directory. The optional directory can match any directory. At the route registration moment, NKRouter will register optional directory `:option` instead of the directory which start of `:`.
 
-For example, the following URL register `app/home/:controller` will be registered as `app/home/:option`.  
-That will match the routed URL like `app/home/controller`, `app/home/user`,  `app/home/helper` ...., but can not match URL which other directorys do not matched like `web/home/controller`, `app/user/controller` ..., nerther nor less or more directorys like  `app/home`, `app/home/controller/view`...
+For example, the URL register `app/home/:controller` will be registered as `app/home/:option`.  
+That will match the routed URL like `app/home/controller`, `app/home/user`,  `app/home/helper` ...., but can not match URL which other directorys do not matched like `web/home/controller`, `app/user/controller` ..., neither nor less or more directorys like  `app/home`, `app/home/controller/view`...
 
-NKRouter also supports setting up multiple optional parameters like `app/home/:controller/:view` (matched  `app/home/controller/view`, `app/home/user/info` ... ) and the optional parameters can set in any directory like `app/home/:controller/view` (matched  `app/home/controller/view`, `app/home/user/view` ... )
+NKRouter also supports setting up multiple optional directorys like `app/home/:controller/:view` (matched  `app/home/controller/view`, `app/home/user/info` ... ) and the optional directory can set in any directory like `app/home/:controller/view` (matched  `app/home/controller/view`, `app/home/user/view` ... )
 
 ```objc
 [[NKRouter globalRouter] registerUrlPath:@"app/home/:controller/:view" handler:^(NSDictionary * _Nullable parameters) {
@@ -105,7 +131,7 @@ NKRouter also supports setting up multiple optional parameters like `app/home/:c
 
 ### Wildcards 
 
-NKRouter supports setting up route with wildcards `*`. That will match an arbitrary number of path components at the end of the routed URL. 
+NKRouter supports setting up route with wildcards `*`.Wildcards must be set at the end directory of URL. That will match an arbitrary number of path components at the end of the routed URL. 
 
 For example, the following route would be triggered for any URL that started with `wildcard/` ( like `wildcard/`, `wildcard/view`, `wildcard/view/subview`, ... ), but would be not trigger the URL like `home/view`.
 
@@ -125,8 +151,8 @@ For example, the following route would be triggered for any URL that started wit
 ### Algorithm Detail:
 NKRouter matches the most exact URL route. 
 - Router matches the same directory firstly, then go to match the next directory if matched. 
-- Otherwise router matches the optional parameter secoedly, then go to match the next directory if matched. 
-- Router go back to previous directory if neither directorys do not exist. 
+- Otherwise router matches the optional directory secoedly, then go to match the next directory if matched. 
+- Router go back to previous directory if neither directorys do nor exist. 
 - Finally, the routing session, which matched the whole path, will be executed. 
 
 For example, the URL route request `app/home/view` would be triggered for the following registered URL orderly:
@@ -155,5 +181,5 @@ At the end, URL route `completionHandler` called with invalid response parameter
 #### **Notes:** URL route request will trigger **once only**. That mean the route below `app/home/view` will not be triggered if `app/home/view` had been registered, and route to `app/home/view` session.
 
 
-### License ###
+### License 
 This project is used under the <a href="http://opensource.org/licenses/MIT" target="_blank">MIT</a> license agreement. For more information, see <a href="https://github.com/NearKXH/NKRouter/blob/master/LICENSE">LICENSE</a>.
