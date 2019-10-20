@@ -26,10 +26,17 @@
 }
 
 - (void)sessionRequest:(NKRouterRequest *)request completionHandler:(void (^)(BOOL, NSDictionary * _Nullable, NSError * _Nullable))completionHandler {
-    if (_handler) {
+    if (_handler && [NSThread isMainThread]) {
         _handler(request.parameters);
+        completionHandler(true, nil, nil);
+    } else if (_handler && ![NSThread isMainThread]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _handler(request.parameters);
+            completionHandler(true, nil, nil);
+        });
+    } else {
+        completionHandler(true, nil, nil);
     }
-    completionHandler(true, nil, nil);
 }
 
 

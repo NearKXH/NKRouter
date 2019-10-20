@@ -303,7 +303,7 @@ static NSLock *_NKRouter_SchemeCollectionMapLock = nil;
         [self _mainThreadExecuteCompletionHandler:response completionHandler:completionHandler];
     }
     
-    return exeSession;
+    return exeSession != nil;
     
 }
 

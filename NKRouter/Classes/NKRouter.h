@@ -45,7 +45,7 @@ extern NKRouterSchemeName const NKRouterGlobalScheme;
  If the scheme of the url is empty, globalRouter will be used
 
  @param url register url path
- @param handler called when url is matched
+ @param handler called on main thread when url is matched 
  @return true, if register succeed. False, if url path is empty (e.g. http://eg or http://eg////)
  */
 + (BOOL)registerUrl:(NSString *)url handler:(void (^)(NSDictionary * _Nullable parameters))handler;
