@@ -294,13 +294,13 @@ static NSLock *_NKRouter_SchemeCollectionMapLock = nil;
         [exeSession sessionRequest:request completionHandler:^(BOOL succeed, NSDictionary * _Nullable responseObject, NSError * _Nullable error) {
             if (completionHandler) {
                 NKRouterResponse *response = [NKRouterResponse responseWithRequest:requestRsp succeed:succeed responseObject:responseObject error:error];
-                completionHandler(response);
+                [self _mainThreadExecuteCompletionHandler:response completionHandler:completionHandler];
             }
         }];
         
     } else if (completionHandler) {
         NKRouterResponse *response = [NKRouterResponse invalidMatchResponseUrl:urlComponents.string parameters:parameters];
-        completionHandler(response);
+        [self _mainThreadExecuteCompletionHandler:response completionHandler:completionHandler];
     }
     
     return exeSession;
