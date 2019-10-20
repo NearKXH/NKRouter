@@ -31,7 +31,7 @@
         completionHandler(true, nil, nil);
     } else if (_handler && ![NSThread isMainThread]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            _handler(request.parameters);
+            self.handler(request.parameters);
             completionHandler(true, nil, nil);
         });
     } else {
